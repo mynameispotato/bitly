@@ -3,9 +3,8 @@ import requests
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 import argparse
-load_dotenv()
 
-BITLY_TOKEN = os.environ['BITLY_TOKEN']
+
 TEMPLATE_LINK = "https://api-ssl.bitly.com/v4/bitlinks/"
 
 
@@ -33,7 +32,9 @@ def is_bitlink(url, headers):
 
 
 def main():
-    headers = {'Authorization': 'Bearer {}'.format(BITLY_TOKEN)}
+    load_dotenv()
+    bitly_token = os.environ['BITLY_TOKEN']
+    headers = {'Authorization': 'Bearer {}'.format(bitly_token)}
     link_to_short = argparse.ArgumentParser(
     description='Сокращает ссылку/проверяет кол-во переходов по сокращённой ссылке'
     )
