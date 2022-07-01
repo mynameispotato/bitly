@@ -35,20 +35,20 @@ def main():
     load_dotenv()
     bitly_token = os.environ['BITLY_TOKEN']
     headers = {'Authorization': 'Bearer {}'.format(bitly_token)}
-    link_to_short = argparse.ArgumentParser(
+    function = argparse.ArgumentParser(
     description='Сокращает ссылку/проверяет кол-во переходов по сокращённой ссылке'
     )
-    link_to_short.add_argument('--url', help='ссылка')
-    args = link_to_short.parse_args()
-    link_to_short = args.url
+    function.add_argument('--url', help='ссылка')
+    args = function.parse_args()
+    function = args.url
 
     try:
-        if is_bitlink(link_to_short, headers):
-            click_count = count_clicks(link_to_short, headers)
+        if is_bitlink(function, headers):
+            click_count = count_clicks(function, headers)
             print("Кол-во переходов по ней: ", click_count)
 
         else:
-            bitly_link = shorter_link(link_to_short, headers)
+            bitly_link = shorter_link(function, headers)
             print("Сокращённая ссылка: ", bitly_link)
 
     except requests.exceptions.HTTPError as error:
