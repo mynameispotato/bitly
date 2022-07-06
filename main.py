@@ -36,7 +36,8 @@ def main():
     bitly_token = os.environ['BITLY_TOKEN']
     headers = {'Authorization': 'Bearer {}'.format(bitly_token)}
     function = argparse.ArgumentParser(
-    description='Сокращает ссылку/проверяет кол-во переходов по сокращённой ссылке'
+        description='''Сокращает ссылку/
+        проверяет кол-во переходов по сокращённой ссылке'''
     )
     function.add_argument('--url', help='ссылка')
     args = function.parse_args()
