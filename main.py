@@ -40,15 +40,14 @@ def main():
     )
     function.add_argument('--url', help='ссылка')
     args = function.parse_args()
-    function = args.url
 
     try:
-        if is_bitlink(function, headers):
-            click_count = count_clicks(function, headers)
+        if is_bitlink(args.url, headers):
+            click_count = count_clicks(args.url, headers)
             print("Кол-во переходов по ней: ", click_count)
 
         else:
-            bitly_link = shorter_link(function, headers)
+            bitly_link = shorter_link(args.url, headers)
             print("Сокращённая ссылка: ", bitly_link)
 
     except requests.exceptions.HTTPError as error:
