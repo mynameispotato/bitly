@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 import argparse
 
 
-TEMPLATE_LINK = "https://api-ssl.bitly.com/v4/bitlinks"
+TEMPLATE_API_LINK = "https://api-ssl.bitly.com/v4/bitlinks"
 
 
-def shorter_link(link, headers):
+def link_shorter(link, headers):
     short_link = "https://api-ssl.bitly.com/v4/shorten"
     payload = {"long_url": link}
     response = requests.post(short_link, json=payload, headers=headers)
@@ -35,7 +35,7 @@ def main():
     load_dotenv()
     bitly_token = os.environ['BITLY_TOKEN']
     headers = {'Authorization': 'Bearer {}'.format(bitly_token)}
-    function = argparse.ArgumentParser(
+    parser = argparse.ArgumentParser(
         description='''Сокращает ссылку/
         проверяет кол-во переходов по сокращённой ссылке'''
     )
@@ -48,7 +48,7 @@ def main():
             print("Кол-во переходов по ней: ", click_count)
 
         else:
-            bitly_link = shorter_link(args.url, headers)
+            bitly_link = link_shorter(args.url, headers)
             print("Сокращённая ссылка: ", bitly_link)
 
     except requests.exceptions.HTTPError as error:
