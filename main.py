@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 import argparse
 
 
-TEMPLATE_API_LINK = "https://api-ssl.bitly.com/v4/bitlinks"
+API_URL = "https://api-ssl.bitly.com/v4/bitlinks"
 
 
-def shorter_link(link, headers):
+def shorten_link(link, headers):
     short_link = "https://api-ssl.bitly.com/v4/shorten"
     payload = {"long_url": link}
     response = requests.post(short_link, json=payload, headers=headers)
@@ -17,7 +17,7 @@ def shorter_link(link, headers):
 
 
 def count_clicks(link, headers):
-    clicks_count_link = f"{TEMPLATE_API_LINK}/{link}/clicks/summary"
+    clicks_count_link = f"{API_URL}/{link}/clicks/summary"
     response = requests.get(clicks_count_link, headers=headers)
     response.raise_for_status()
     return response.json()["total_clicks"]
@@ -25,7 +25,7 @@ def count_clicks(link, headers):
 
 def is_bitlink(url, headers):
     parse_link = urlparse(url)
-    link_bitly = f"{TEMPLATE_API_LINK}/{parse_link.netloc}{parse_link.path}"
+    link_bitly = f"{API_URL}/{parse_link.netloc}{parse_link.path}"
     response = requests.get(link_bitly, headers=headers)
 
     return response.ok
@@ -48,7 +48,7 @@ def main():
             print("Кол-во переходов по ней: ", click_count)
 
         else:
-            bitly_link = shorter_link(args.url, headers)
+            bitly_link = shorten_link(args.url, headers)
             print("Сокращённая ссылка: ", bitly_link)
 
     except requests.exceptions.HTTPError as error:
