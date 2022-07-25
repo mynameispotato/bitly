@@ -23,11 +23,10 @@ def count_clicks(link, headers):
     return response.json()["total_clicks"]
 
 
-def is_bitlink(url, headers):
-    parse_link = urlparse(url)
-    link_bitly = f"{API_URL}/{parse_link.netloc}{parse_link.path}"
-    response = requests.get(link_bitly, headers=headers)
-
+def is_bitlink(user_link, headers):
+    prepared_link = urlparse(user_link)
+    url = f"{API_URL}/{prepared_link.netloc}{prepared_link.path}"
+    response = requests.get(url, headers=headers)
     return response.ok
 
 
