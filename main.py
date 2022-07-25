@@ -1,8 +1,9 @@
 import os
+import argparse
+
+from dotenv import load_dotenv
 import requests
 from urllib.parse import urlparse
-from dotenv import load_dotenv
-import argparse
 
 
 API_URL = "https://api-ssl.bitly.com/v4/bitlinks"
