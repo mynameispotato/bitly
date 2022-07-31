@@ -10,9 +10,9 @@ API_URL = "https://api-ssl.bitly.com/v4/bitlinks"
 
 
 def shorten_link(link, headers):
-    short_link = "https://api-ssl.bitly.com/v4/shorten"
+    url_parts = "https://api-ssl.bitly.com/v4/shorten"
     payload = {"long_url": link}
-    response = requests.post(short_link, json=payload, headers=headers)
+    response = requests.post(url_parts, json=payload, headers=headers)
     response.raise_for_status()
     return response.json()["id"]
 
@@ -25,8 +25,7 @@ def count_clicks(link, headers):
 
 
 def is_bitlink(user_link, headers):
-    prepared_link = urlparse(user_link)
-    url = f"{API_URL}/{prepared_link.netloc}{prepared_link.path}"
+    url = f"{API_URL}/{urlparse(user_link).netloc}{urlparse(user_link).path}"
     response = requests.get(url, headers=headers)
     return response.ok
 
