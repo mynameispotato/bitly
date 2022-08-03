@@ -10,9 +10,9 @@ API_URL = "https://api-ssl.bitly.com/v4/bitlinks"
 
 
 def shorten_link(link, headers):
-    url_parts = "https://api-ssl.bitly.com/v4/shorten"
+    url = "https://api-ssl.bitly.com/v4/shorten"
     payload = {"long_url": link}
-    response = requests.post(url_parts, json=payload, headers=headers)
+    response = requests.post(url, json=payload, headers=headers)
     response.raise_for_status()
     return response.json()["id"]
 
