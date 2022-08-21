@@ -15,16 +15,20 @@ def shorten_link(link, headers):
 
 
 def count_clicks(link, headers):
-    clicks_count_link = f"https://api-ssl.bitly.com/v4/bitlinks/"\
+    clicks_count_link = (
+        f"https://api-ssl.bitly.com/v4/bitlinks/"
         f"{link}/clicks/summary"
+    )
     response = requests.get(clicks_count_link, headers=headers)
     response.raise_for_status()
     return response.json()["total_clicks"]
 
 
 def is_bitlink(user_link, headers):
-    url = f"https://api-ssl.bitly.com/v4/bitlinks/"\
+    url = (
+        f"https://api-ssl.bitly.com/v4/bitlinks/"
         f"{urlparse(user_link).netloc}{urlparse(user_link).path}"
+    )
     response = requests.get(url, headers=headers)
     return response.ok
 
